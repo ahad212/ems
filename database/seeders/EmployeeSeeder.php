@@ -4,7 +4,7 @@ namespace Database\Seeders;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
-
+use Carbon\Carbon;
 class EmployeeSeeder extends Seeder
 {
     /**
@@ -21,7 +21,9 @@ class EmployeeSeeder extends Seeder
                 'phone' => Str::random(10),
                 'email' => Str::random(10).'@gmail.com',
                 'designation' => Str::random(10),
-                'department' => Str::random(10)
+                'department' => Str::random(10),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]);
         }
     }
