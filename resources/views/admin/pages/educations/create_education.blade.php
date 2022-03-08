@@ -20,10 +20,10 @@
     <h3>Create Employee</h3>
     <form id="create-form">
         <div class="row">
-            <div class="col">
+            {{-- <div class="col">
                 <div class="card margin-top">
                     <div class="card-body">
-                        <h4>Personal Informations</h4>
+                        <h4>Personal Information</h4>
                         <div class="mb-3">
                             <label for="name" class="form-label">Name *</label>
                             <input type="text" name="name" class="form-control" id="name" placeholder="Arif Mahmud" required>
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             {{-- <div class="col">
                 <div class="card margin-top padding-bottom">
                     <div class="card-body">
@@ -78,12 +78,11 @@
                     </div>
                 </div>
             </div> --}}
-        </div>
-        {{-- <div class="row">
             <div class="col">
                 <div class="card margin-top">
                     <div class="card-body">
-                        <h4>Educational Information</h4>
+                        <h4>Educational Informations</h4>
+                        <input type="hidden" name="employee_id" value="{{request()->id}}">
                         <div class="mb-3">
                             <label for="exam" class="form-label">Exam *</label>
                             <input type="text" name="exam" class="form-control" id="exam" placeholder="BSC" required>
@@ -103,7 +102,7 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
         <div class="create-btn">
             <a href="{{route('employee_list')}}" class="btn btn-danger">Cancel</a>
             <button class="btn btn-primary">Create</button>
@@ -116,26 +115,28 @@
                 e.preventDefault();
                 let employeeInfo = {
                     // personal info
-                    name: form.name.value,
-                    phone: form.phone.value,
-                    email: form.email.value,
-                    roll: form.roll.value,
-                    designation: form.designation.value,
-                    department: form.department.value,
+                    // name: form.name.value,
+                    // phone: form.phone.value,
+                    // email: form.email.value,
+                    // roll: form.roll.value,
+                    // designation: form.designation.value,
+                    // department: form.department.value,
                     // organizational info
                     // organization: form.organization.value,
                     // from_date: form.from_date.value,
                     // to_date: form.to_date.value,
                     // organization_designation: form.organization_designation.value,
                     // duties: form.duties.value,
+
                     // educational info
-                    // exam: form.exam.value,
-                    // passing_year: form.passing_year.value,
-                    // result: form.result.value,
-                    // institution: form.institution.value,
+                    employee_id: form.employee_id.value,
+                    exam: form.exam.value,
+                    passing_year: form.passing_year.value,
+                    result: form.result.value,
+                    institution: form.institution.value,
                 }
                 let formdata = formData(employeeInfo);
-                axios.post('http://127.0.0.1:8000/api/v1/create-employee', formdata)
+                axios.post('http://127.0.0.1:8000/api/v1/create-education', formdata)
                 .then(res => {
                     console.log(res);
                 });

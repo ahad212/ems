@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\employee;
-use App\Models\employee_experience;
-use App\Models\employee_education;
 use DataTables;
 
 class EmployeeController extends Controller
@@ -26,9 +24,21 @@ class EmployeeController extends Controller
     }
     public function employee_list() {
         $all_employees = employee::query();
-        // return response()->json([
-        //     'data' => $all_employees
-        // ]);
-        return DataTables::eloquent($all_employees)->toJson();
+        return DataTables::eloquent($all_employees)
+        ->addIndexColumn()
+        ->addColumn('informations', function ($employee) {
+            return "<a class='btn btn-info'  href= '/admin/{$employee->id}/educational-informations'><i class='fas fa-user-graduate'></i></a> 
+                    <a class='btn btn-info'  href= '/admin/{$employee->id}/experience-informations'><i class='fas fa-briefcase'></i></a>";
+        })
+        ->addColumn('actions', function ($employee) {
+            return "<div style='display:flex;flex-wrap: wrap; row-gap: 5px;'>
+                        <a class='btn btn-info'  href= ''><i class='fas fa-pen'></i></a> 
+                        <a class='btn btn-warning'  href= ''><i class='fas fa-eye'></i></a>
+                        <a class='btn btn-danger'  href= ''><i class='fas fa-trash'></i></a>
+                    </div>";
+        })
+        ->orderColumn('id', '-id $1')
+        ->rawColumns(['informations', 'actions'])
+        ->make(true);
     }
 }

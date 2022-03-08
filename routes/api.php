@@ -19,6 +19,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function() {
-    Route::post('/create-employee', 'EmployeeController@create');
+    // employee
+    Route::post('/create-employee', 'EmployeeController@create')->name('create_employee');
     Route::get('/employe-list', 'EmployeeController@employee_list')->name('employee_list');
+    
+    // employee education
+    Route::post('/create-education', 'EmployeeEducationController@create')->name('create_education');
+    Route::get('/education-list', 'EmployeeEducationController@education_list')->name('education_list');
+
+    // employee experience
+    Route::post('/create-experience', 'EmployeeExperienceController@create')->name('create_experience');
+    Route::get('/experience-list', 'EmployeeExperienceController@experience_list')->name('experience_list');
+
 });
