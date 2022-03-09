@@ -35,7 +35,7 @@
                         processing: '<img src="{{ asset('images/loader.gif') }}">' 
                     },
                     ajax: {
-                        url: `http://127.0.0.1:8000/api/v1/education-list/${employeeId}`,
+                        url: `/api/v1/education-list/${employeeId}`,
                     },
                     "columns": [
                         {'data': 'id', name: 'id'},

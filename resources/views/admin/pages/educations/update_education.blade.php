@@ -24,59 +24,48 @@
                 <div class="card margin-top">
                     <div class="card-body">
                         <h4>Educational Informations</h4>
-                        <input type="hidden" name="employee_id" value="{{request()->id}}">
+                        <input type="hidden" name="education_id" value="{{request()->education_id}}">
                         <div class="mb-3">
                             <label for="exam" class="form-label">Exam *</label>
-                            <input type="text" name="exam" class="form-control" id="exam" placeholder="BSC" required>
+                            <input type="text" name="exam" class="form-control" value="{{$education->exam}}" id="exam" placeholder="BSC" required>
                         </div>
                         <div class="mb-3">
                             <label for="passing" class="form-label">Passing Year *</label>
-                            <input type="text" name="passing_year" class="form-control" id="passing" placeholder="2020" required>
+                            <input type="text" name="passing_year" class="form-control" value="{{$education->passing_year}}" id="passing" placeholder="2020" required>
                         </div>
                         <div class="mb-3">
                             <label for="result" class="form-label">Result *</label>
-                            <input type="text" name="result" class="form-control" id="result" placeholder="3.23" required>
+                            <input type="text" name="result" class="form-control" value="{{$education->result}}" id="result" placeholder="3.23" required>
                         </div>
                         <div class="mb-3">
                             <label for="institution" class="form-label">Institution *</label>
-                            <input type="text" name="institution" class="form-control" id="institution" placeholder="National University" required>
+                            <input type="text" name="institution" class="form-control" value="{{$education->institution}}" id="institution" placeholder="National University" required>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="create-btn">
-            <a href="{{route('education_list', request()->id)}}" class="btn btn-danger">Cancel</a>
+            <a href="{{route('education_list', request()->employee_id)}}" class="btn btn-danger">Cancel</a>
             <button class="btn btn-primary">Create</button>
         </div>
     </form>
     @section('script')
         <script>
             let form = document.forms[0];
+            const education_id = form.education_id.value;
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                let employeeInfo = {
-                    employee_id: form.employee_id.value,
+                axios.put(`/api/v1/education_edit/${education_id}`, {
                     exam: form.exam.value,
                     passing_year: form.passing_year.value,
                     result: form.result.value,
                     institution: form.institution.value,
-                }
-                let formdata = formData(employeeInfo);
-                axios.post('http://127.0.0.1:8000/api/v1/create-education', formdata)
+                })
                 .then(res => {
                     console.log(res);
                 });
             });
-
-            // convert object to form data
-            function formData(dataObject) {
-                let formdata = new FormData();
-                for (const key in dataObject) {
-                    formdata.append(key, dataObject[key]);
-                }
-                return formdata;
-            }
         </script>
     @endsection
 @endsection

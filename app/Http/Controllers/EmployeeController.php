@@ -7,8 +7,8 @@ use DataTables;
 
 class EmployeeController extends Controller
 {
+    // return employee create api response
     public function create(Request $request) {
-        // insert employee
         $employee = new employee;
         $employee->roll = $request->roll;
         $employee->phone = $request->phone;
@@ -22,6 +22,8 @@ class EmployeeController extends Controller
             return response()->json('done');
         }
     }
+
+    // return employee list
     public function employee_list() {
         $all_employees = employee::query();
         return DataTables::eloquent($all_employees)
@@ -32,16 +34,24 @@ class EmployeeController extends Controller
         })
         ->addColumn('actions', function ($employee) {
             return "<div style='display: flex;flex-flow: row wrap; gap: 5px;'>
-                        <a class='btn btn-info'  href= ''><i class='fas fa-pen'></i></a> 
+                        <a class='btn btn-info'  href= '/admin/employee-edit/{$employee->id}'><i class='fas fa-pen'></i></a> 
                         <a class='btn btn-warning'  href= ''><i class='fas fa-eye'></i></a>
-                        <a class='btn btn-danger'  href= ''><i class='fas fa-trash'></i></a>
+                        <a class='btn btn-danger'  href= '/api/v1/employee_delete/{$employee->id}'><i class='fas fa-trash'></i></a>
                     </div>";
         })
         ->orderColumn('id', '-id $1')
         ->rawColumns(['informations', 'actions'])
         ->make(true);
     }
-    public function update(Request $request, $employee_id) {
+
+    // return employee edit page
+    public function edit_view($employee_id) {
+        $employee = employee::find($employee_id);
+        return view('admin.pages.update_employee', compact(['employee']));
+    }
+
+    // return employee update api response
+    public function update($employee_id, Request $request) {
         $employee = employee::find($employee_id);
         $employee->roll = $request->roll;
         $employee->phone = $request->phone;
@@ -53,6 +63,15 @@ class EmployeeController extends Controller
         
         if ($employee) {
             return response()->json('edited');
+        }
+    }
+    
+    // delete employee and back
+    public function destroy($employee_id) {
+        $employee = employee::find($employee_id);
+        $employee->delete();
+        if ($employee) {
+            return back();
         }
     }
 }

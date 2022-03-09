@@ -24,64 +24,53 @@
                 <div class="card margin-top padding-bottom">
                     <div class="card-body">
                         <h4>Organization Informations</h4>
-                        <input type="hidden" name="employee_id" value="{{request()->id}}">
+                        <input type="hidden" name="experience_id" value="{{request()->experience_id}}">
                         <div class="mb-3">
                             <label for="organization" class="form-label">Organization *</label>
-                            <input type="text" name="organization" class="form-control" id="organization" placeholder="Roopokar IT" required>
+                            <input type="text" name="organization" class="form-control" value="{{$experience->organization}}" id="organization" placeholder="Roopokar IT" required>
                         </div>
                         <div class="mb-3">
                             <label for="from" class="form-label">From Date *</label>
-                            <input type="date" name="from_date" class="form-control" id="from" required>
+                            <input type="date" name="from_date" class="form-control" value="{{$experience->from_date}}" id="from" required>
                         </div>
                         <div class="mb-3">
                             <label for="to" class="form-label">To Date *</label>
-                            <input type="date" name="to_date" class="form-control" id="to" required>
+                            <input type="date" name="to_date" class="form-control" value="{{$experience->to_date}}" id="to" required>
                         </div>
                         <div class="mb-3">
                             <label for="designation" class="form-label">Designation *</label>
-                            <input type="text" name="organization_designation" class="form-control" id="designation" placeholder="Developer" required>
+                            <input type="text" name="organization_designation" class="form-control" value="{{$experience->designation}}" id="designation" placeholder="Developer" required>
                         </div>
                         <div class="mb-3">
                             <label for="duties" class="form-label">Duties *</label>
-                            <input type="text" name="duties" class="form-control" id="duties" placeholder="Development" required>
+                            <input type="text" name="duties" class="form-control" value="{{$experience->duties}}" id="duties" placeholder="Development" required>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="create-btn">
-            <a href="{{route('experience_list', request()->id)}}" class="btn btn-danger">Cancel</a>
+            <a href="{{route('experience_list', request()->employee_id)}}" class="btn btn-danger">Cancel</a>
             <button class="btn btn-primary">Create</button>
         </div>
     </form>
     @section('script')
         <script>
             let form = document.forms[0];
+            const experience_id = form.experience_id.value;
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                let employeeInfo = {
-                    employee_id: form.employee_id.value,
+                axios.put(`/api/v1/experience_edit/${experience_id}`, {
                     organization: form.organization.value,
                     from_date: form.from_date.value,
                     to_date: form.to_date.value,
                     organization_designation: form.organization_designation.value,
-                    duties: form.duties.value,
-                }
-                let formdata = formData(employeeInfo);
-                axios.post('http://127.0.0.1:8000/api/v1/create-experience', formdata)
+                    duties: form.duties.value,                    
+                })
                 .then(res => {
                     console.log(res);
                 });
             });
-
-            // convert object to form data
-            function formData(dataObject) {
-                let formdata = new FormData();
-                for (const key in dataObject) {
-                    formdata.append(key, dataObject[key]);
-                }
-                return formdata;
-            }
         </script>
     @endsection
 @endsection

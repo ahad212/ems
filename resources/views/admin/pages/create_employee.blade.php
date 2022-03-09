@@ -51,59 +51,7 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="col">
-                <div class="card margin-top padding-bottom">
-                    <div class="card-body">
-                        <h4>Organizational Information</h4>
-                        <div class="mb-3">
-                            <label for="organization" class="form-label">Organization *</label>
-                            <input type="text" name="organization" class="form-control" id="organization" placeholder="Roopokar IT" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="from" class="form-label">From Date *</label>
-                            <input type="date" name="from_date" class="form-control" id="from" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="to" class="form-label">To Date *</label>
-                            <input type="date" name="to_date" class="form-control" id="to" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="designation" class="form-label">Designation *</label>
-                            <input type="text" name="organization_designation" class="form-control" id="designation" placeholder="Developer" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="duties" class="form-label">Duties *</label>
-                            <input type="text" name="duties" class="form-control" id="duties" placeholder="Development" required>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
         </div>
-        {{-- <div class="row">
-            <div class="col">
-                <div class="card margin-top">
-                    <div class="card-body">
-                        <h4>Educational Information</h4>
-                        <div class="mb-3">
-                            <label for="exam" class="form-label">Exam *</label>
-                            <input type="text" name="exam" class="form-control" id="exam" placeholder="BSC" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="passing" class="form-label">Passing Year *</label>
-                            <input type="text" name="passing_year" class="form-control" id="passing" placeholder="2020" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="result" class="form-label">Result *</label>
-                            <input type="text" name="result" class="form-control" id="result" placeholder="3.23" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="institution" class="form-label">Institution *</label>
-                            <input type="text" name="institution" class="form-control" id="institution" placeholder="National University" required>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
         <div class="create-btn">
             <a href="{{route('employee_list')}}" class="btn btn-danger">Cancel</a>
             <button class="btn btn-primary">Create</button>
@@ -115,27 +63,15 @@
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 let employeeInfo = {
-                    // personal info
                     name: form.name.value,
                     phone: form.phone.value,
                     email: form.email.value,
                     roll: form.roll.value,
                     designation: form.designation.value,
                     department: form.department.value,
-                    // organizational info
-                    // organization: form.organization.value,
-                    // from_date: form.from_date.value,
-                    // to_date: form.to_date.value,
-                    // organization_designation: form.organization_designation.value,
-                    // duties: form.duties.value,
-                    // educational info
-                    // exam: form.exam.value,
-                    // passing_year: form.passing_year.value,
-                    // result: form.result.value,
-                    // institution: form.institution.value,
                 }
                 let formdata = formData(employeeInfo);
-                axios.post('http://127.0.0.1:8000/api/v1/create-employee', formdata)
+                axios.post('/api/v1/create-employee', formdata)
                 .then(res => {
                     console.log(res);
                 });
