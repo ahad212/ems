@@ -21,7 +21,11 @@ class CreateEmployeeExperiencesTable extends Migration
             $table->string('to_date');
             $table->string('designation');
             $table->string('duties');
-            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->foreign('employee_id')
+            ->references('id')
+            ->on('employees')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -31,7 +31,7 @@ class EmployeeController extends Controller
                     <a class='btn btn-info'  href= '/admin/{$employee->id}/experience-informations'><i class='fas fa-briefcase'></i></a>";
         })
         ->addColumn('actions', function ($employee) {
-            return "<div style='display:flex;flex-wrap: wrap; row-gap: 5px;'>
+            return "<div style='display: flex;flex-flow: row wrap; gap: 5px;'>
                         <a class='btn btn-info'  href= ''><i class='fas fa-pen'></i></a> 
                         <a class='btn btn-warning'  href= ''><i class='fas fa-eye'></i></a>
                         <a class='btn btn-danger'  href= ''><i class='fas fa-trash'></i></a>
@@ -40,5 +40,19 @@ class EmployeeController extends Controller
         ->orderColumn('id', '-id $1')
         ->rawColumns(['informations', 'actions'])
         ->make(true);
+    }
+    public function update(Request $request, $employee_id) {
+        $employee = employee::find($employee_id);
+        $employee->roll = $request->roll;
+        $employee->phone = $request->phone;
+        $employee->name = $request->name;
+        $employee->email = $request->email;
+        $employee->designation = $request->designation;
+        $employee->department = $request->department;
+        $employee->save();
+        
+        if ($employee) {
+            return response()->json('edited');
+        }
     }
 }

@@ -22,8 +22,9 @@ class EmployeeExperienceController extends Controller
             return response()->json('done');
         }
     }
-    public function experience_list() {
-        $all_experience = employee_experience::query();
+    public function experience_list($employee_id) {
+        $where = ['employee_id' => $employee_id];
+        $all_experience = employee_experience::where($where);
         return DataTables::eloquent($all_experience)
         ->addIndexColumn()
         ->addColumn('actions', function ($experience) {

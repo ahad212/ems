@@ -21,8 +21,9 @@ class EmployeeEducationController extends Controller
             return response()->json('done');
         }
     }
-    public function education_list() {
-        $all_educations = employee_education::query();
+    public function education_list($employee_id) {
+        $where = ['employee_id' => $employee_id];
+        $all_educations = employee_education::where($where);
         return DataTables::eloquent($all_educations)
         ->addIndexColumn()
         ->addColumn('actions', function ($education) {

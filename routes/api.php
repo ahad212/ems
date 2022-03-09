@@ -22,13 +22,14 @@ Route::prefix('v1')->group(function() {
     // employee
     Route::post('/create-employee', 'EmployeeController@create')->name('create_employee');
     Route::get('/employe-list', 'EmployeeController@employee_list')->name('employee_list');
+    Route::put('/employee_edit/{employee_id}', 'EmployeeController@update')->name('update_employee');
     
     // employee education
     Route::post('/create-education', 'EmployeeEducationController@create')->name('create_education');
-    Route::get('/education-list', 'EmployeeEducationController@education_list')->name('education_list');
+    Route::get('/education-list/{employee_id}', 'EmployeeEducationController@education_list')->name('education_list');
 
     // employee experience
     Route::post('/create-experience', 'EmployeeExperienceController@create')->name('create_experience');
-    Route::get('/experience-list', 'EmployeeExperienceController@experience_list')->name('experience_list');
+    Route::get('/experience-list/{employee_id}', 'EmployeeExperienceController@experience_list')->name('experience_list');
 
 });

@@ -10,6 +10,7 @@
         </style>
     @endsection
     <a class="btn btn-primary margin-tb" href="{{route('create_experience', request()->id)}}">Create</a>
+    <input type="hidden" id="currentemployeeId" name="current_employee_id" value="{{request()->id}}">
     <table id="table_id" class="table table-bordered display">
         <thead>
             <tr>
@@ -27,6 +28,7 @@
     @section('script')
         <script>
             $(document).ready( function () {
+                const employeeId = document.getElementById("currentemployeeId").value;
                 $('#table_id').DataTable({
                     processing: true,
                     serverSide: true,
@@ -34,7 +36,7 @@
                         processing: '<img src="{{ asset('images/loader.gif') }}">' 
                     },
                     ajax: {
-                        url: "http://127.0.0.1:8000/api/v1/experience-list",
+                        url: `http://127.0.0.1:8000/api/v1/experience-list/${employeeId}`,
                     },
                     "columns": [
                         {'data': 'id', name: 'id'},

@@ -20,7 +20,11 @@ class CreateEmployeeEducationsTable extends Migration
             $table->string('passing_year');
             $table->string('result');
             $table->string('institution');
-            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->foreign('employee_id')
+            ->references('id')
+            ->on('employees')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }
