@@ -19,7 +19,10 @@ class EmployeeEducationController extends Controller
         $employee_education->save();
 
         if ($employee_education) {
-            return response()->json('done');
+            return response()->json([
+                'success' => true,
+                'message' => 'Employee education added successfully'
+            ], 200);
         }
     }
     
@@ -31,7 +34,7 @@ class EmployeeEducationController extends Controller
         ->addIndexColumn()
         ->addColumn('actions', function ($education) {
             return "<a class='btn btn-info'  href= '/admin/{$education->employee_id}/educational-inforamations/edit/{$education->id}'><i class='fas fa-pen'></i></a> 
-                    <a class='btn btn-danger'  href= '/api/v1/education_delete/{$education->id}'><i class='fas fa-trash'></i></a>";
+            <button class='btn btn-danger' id='$education->id' onclick='deleteEducation(this)'><i class='fas fa-trash'></i></button>";
         })
         ->orderColumn('id', '-id $1')
         ->rawColumns(['actions'])
@@ -54,7 +57,10 @@ class EmployeeEducationController extends Controller
         $education->save();
         
         if ($education) {
-            return response()->json('edited');
+            return response()->json([
+                'success' => true,
+                'message' => 'Employee education updated successfully'
+            ], 200);
         }
     }
 

@@ -9,6 +9,13 @@ class EmployeeController extends Controller
 {
     // return employee create api response
     public function create(Request $request) {
+        $email_exist_already = employee::where('email', $request->email)->first();
+        if ($email_exist_already) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email already exist'
+            ], 200);
+        }
         $employee = new employee;
         $employee->roll = $request->roll;
         $employee->phone = $request->phone;
@@ -19,7 +26,10 @@ class EmployeeController extends Controller
         $employee->save();
 
         if ($employee) {
-            return response()->json('done');
+            return response()->json([
+                'success' => true,
+                'message' => 'Employee added successfully'
+            ], 200);
         }
     }
 
@@ -36,7 +46,7 @@ class EmployeeController extends Controller
             return "<div style='display: flex;flex-flow: row wrap; gap: 5px;'>
                         <a class='btn btn-info'  href= '/admin/employee-edit/{$employee->id}'><i class='fas fa-pen'></i></a> 
                         <a class='btn btn-warning'  href= ''><i class='fas fa-eye'></i></a>
-                        <a class='btn btn-danger'  href= '/api/v1/employee_delete/{$employee->id}'><i class='fas fa-trash'></i></a>
+                        <button class='btn btn-danger' id='$employee->id' onclick='deleteEmployee(this)'><i class='fas fa-trash'></i></button>
                     </div>";
         })
         ->orderColumn('id', '-id $1')
@@ -62,7 +72,10 @@ class EmployeeController extends Controller
         $employee->save();
         
         if ($employee) {
-            return response()->json('edited');
+            return response()->json([
+                'success' => true,
+                'message' => 'Employee updated successfully'
+            ], 200);
         }
     }
     

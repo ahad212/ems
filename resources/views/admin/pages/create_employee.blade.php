@@ -73,7 +73,22 @@
                 let formdata = formData(employeeInfo);
                 axios.post('/api/v1/create-employee', formdata)
                 .then(res => {
-                    console.log(res);
+                    const {data: response} = res;
+                    if (response.success) {
+                        Swal.fire(
+                            'Great job!',
+                            `${response.message}`,
+                            'success'
+                        ).then(res => {
+                            window.history.back();
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: `${response.message}`,
+                        })
+                    }
                 });
             });
 

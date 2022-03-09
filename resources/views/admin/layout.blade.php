@@ -31,6 +31,7 @@
             margin: 30px auto;
             box-shadow: 1px 2px 2px 2px rgba(0,0,0,0.2), -1px 2px 2px rgba(0,0,0,0.2);
             padding: 10px;
+            overflow-x: auto;
         }
     </style>
     @yield('style')

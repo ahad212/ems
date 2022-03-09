@@ -24,6 +24,7 @@
                 <div class="card margin-top padding-bottom">
                     <div class="card-body">
                         <h4>Organization Informations</h4>
+                        <input type="hidden" name="employee_id" value="{{request()->employee_id}}">
                         <input type="hidden" name="experience_id" value="{{request()->experience_id}}">
                         <div class="mb-3">
                             <label for="organization" class="form-label">Organization *</label>
@@ -51,13 +52,14 @@
         </div>
         <div class="create-btn">
             <a href="{{route('experience_list', request()->employee_id)}}" class="btn btn-danger">Cancel</a>
-            <button class="btn btn-primary">Create</button>
+            <button class="btn btn-primary">Update</button>
         </div>
     </form>
     @section('script')
         <script>
             let form = document.forms[0];
             const experience_id = form.experience_id.value;
+            const employee_id = form.employee_id.value;
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 axios.put(`/api/v1/experience_edit/${experience_id}`, {
@@ -68,7 +70,16 @@
                     duties: form.duties.value,                    
                 })
                 .then(res => {
-                    console.log(res);
+                    const {data: response} = res;
+                    if (response.success) {
+                        Swal.fire(
+                            'Great job!',
+                            `${response.message}`,
+                            'success'
+                        ).then(res => {
+                            window.location.assign(`/admin/${employee_id}/experience-informations`);
+                        });
+                    }
                 });
             });
         </script>

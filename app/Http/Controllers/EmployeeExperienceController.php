@@ -19,7 +19,10 @@ class EmployeeExperienceController extends Controller
         $employee_experience->save();
 
         if ($employee_experience) {
-            return response()->json('done');
+            return response()->json([
+                'success' => true,
+                'message' => 'Employee experience added successfully'
+            ], 200);
         }
     }
 
@@ -31,7 +34,7 @@ class EmployeeExperienceController extends Controller
         ->addIndexColumn()
         ->addColumn('actions', function ($experience) {
             return "<a class='btn btn-info'  href= '/admin/{$experience->employee_id}/experience-inforamations/edit/{$experience->id}'><i class='fas fa-pen'></i></a> 
-                    <a class='btn btn-danger'  href= '/api/v1/education_delete/{$experience->id}'><i class='fas fa-trash'></i></a>";
+            <button class='btn btn-danger' id='$experience->id' onclick='deleteExperience(this)'><i class='fas fa-trash'></i></button>";
         })
         ->orderColumn('id', '-id $1')
         ->rawColumns(['actions'])
@@ -55,7 +58,10 @@ class EmployeeExperienceController extends Controller
         $experience->save();
         
         if ($experience) {
-            return response()->json('edited');
+            return response()->json([
+                'success' => true,
+                'message' => 'Employee experience updated successfully'
+            ], 200);
         }
     }
     

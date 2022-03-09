@@ -55,7 +55,7 @@
         </div>
         <div class="create-btn">
             <a href="{{route('employee_list')}}" class="btn btn-danger">Cancel</a>
-            <button class="btn btn-primary">Create</button>
+            <button class="btn btn-primary">Update</button>
         </div>
     </form>
     
@@ -74,7 +74,16 @@
                     department: form.department.value,
                 })
                 .then(res => {
-                    console.log(res);
+                    const {data: response} = res;
+                    if (response.success) {
+                        Swal.fire(
+                            'Great job!',
+                            `${response.message}`,
+                            'success'
+                        ).then(res => {
+                            window.location.assign(`/admin`);
+                        });
+                    }
                 });
             });
         </script>
