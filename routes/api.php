@@ -19,6 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function() {
+
+
     // employee
     Route::post('/create-employee', 'EmployeeController@create')->name('create_employee');
     Route::get('/employe-list', 'EmployeeController@employee_list')->name('employee_list');

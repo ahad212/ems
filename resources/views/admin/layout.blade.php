@@ -39,7 +39,7 @@
 <body>
     <div class="top-nav">
         <div class="button-group  float-end btn-custom-position">
-            <a class="btn btn-danger">Logout</a>
+            <a class="btn btn-danger" href="{{route('admin_logout')}}">Logout</a>
         </div>
     </div>
     <div class="container custom-container">
