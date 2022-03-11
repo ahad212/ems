@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('inner-content')
+@section('title', 'Employee Education Edit')
     @section('style')
         <style>
             .margin-top {

@@ -38,8 +38,9 @@
 </head>
 <body>
     <div class="top-nav">
-        <div class="button-group  float-end btn-custom-position">
-            <a class="btn btn-danger" href="{{route('admin_logout')}}">Logout</a>
+        <div class="button-group">
+            <a class="btn btn-primary float-start  btn-custom-position" href="javascript:history.back()">Back</a>
+            <a class="btn btn-danger float-end btn-custom-position" href="{{route('admin_logout')}}">Logout</a>
         </div>
     </div>
     <div class="container custom-container">

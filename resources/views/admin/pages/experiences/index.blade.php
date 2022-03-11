@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('inner-content')
+@section('title', 'Employee Experience Table')
     @section('style')
         <style>
             .margin-tb {

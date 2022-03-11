@@ -39,4 +39,8 @@ Route::prefix('v1')->group(function() {
     Route::put('/experience_edit/{experience_id}', 'EmployeeExperienceController@update')->name('update_experience');
     Route::get('/experience_delete/{experience_id}', 'EmployeeExperienceController@destroy')->name('destroy_experience');
 
+
+    // single employee
+
+    Route::get('/employee_profile/{id}', 'EmployeeController@employee')->name('single_employee');
 });

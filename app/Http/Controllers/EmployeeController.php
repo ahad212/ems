@@ -45,7 +45,7 @@ class EmployeeController extends Controller
         ->addColumn('actions', function ($employee) {
             return "<div style='display: flex;flex-flow: row wrap; gap: 5px;'>
                         <a class='btn btn-info'  href= '/admin/employee-edit/{$employee->id}'><i class='fas fa-pen'></i></a> 
-                        <a class='btn btn-warning'  href= ''><i class='fas fa-eye'></i></a>
+                        <a class='btn btn-warning'  href= '/admin/employee/{$employee->id}'><i class='fas fa-eye'></i></a>
                         <button class='btn btn-danger' id='$employee->id' onclick='deleteEmployee(this)'><i class='fas fa-trash'></i></button>
                     </div>";
         })
@@ -86,5 +86,15 @@ class EmployeeController extends Controller
         if ($employee) {
             return back();
         }
+    }
+
+    // return single employee details
+
+    public function employee($id) {
+        $employee_details = employee::where('id', $id)
+        ->with('employee_education')
+        ->with('employee_experience')
+        ->first();
+        return response()->json($employee_details);
     }
 }

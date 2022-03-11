@@ -31,6 +31,9 @@ Route::middleware('admin_auth')
         return view('admin.pages.create_employee');
     })->name('create');
     Route::get('/employee-edit/{employee_id}', 'EmployeeController@edit_view')->name('edit_view');
+    Route::get('/employee/{id}', function() {
+        return view('admin.pages.employee_profile');
+    });
 
     // employee education routes
     Route::get('/{id}/educational-informations', function() {
